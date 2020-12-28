@@ -1,11 +1,25 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: mailu-pv-volume
+  labels:
+    type: local
+spec:
+  storageClassName: mailu-pv
+  capacity:
+    storage: 30Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/mnt/stoapp/conf/mail/"
+---
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
   name: redis-hdd
   namespace: mailu-mailserver
-  annotations:
-    volume.beta.kubernetes.io/storage-class: "glusterblock-hdd"
 spec:
+  storageClassName: mailu-pv
   accessModes:
     - ReadWriteOnce
   resources:
@@ -17,11 +31,10 @@ apiVersion: v1
 metadata:
   name: mail-storage
   namespace: mailu-mailserver
-  annotations:
-    volume.beta.kubernetes.io/storage-class: "gluster-heketi-hdd"
 spec:
+  storageClassName: mailu-pv
   accessModes:
     - ReadWriteMany
   resources:
     requests:
-      storage: 30Gi
+      storage: 25Gi
