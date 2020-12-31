@@ -4,6 +4,9 @@ metadata:
   name: mailu-imap
   namespace: mailu-mailserver
 spec:
+  selector:
+    matchLabels:
+      app: mailu-imap
   replicas: 1
   template:
     metadata:
@@ -49,8 +52,9 @@ spec:
             cpu: 1000m
       volumes:
         - name: maildata
-          persistentVolumeClaim:
-            claimName: mail-storage
+          hostPath:
+            path: /mnt/stoapp/conf/mail
+            type: Directory             
 ---
 apiVersion: v1
 kind: Service
