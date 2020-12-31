@@ -4,6 +4,9 @@ metadata:
   name: mailu-roundcube
   namespace: mailu-mailserver
 spec:
+  selector:
+    matchLabels:
+      app: mailu-roundcube
   replicas: 1
   template:
     metadata:
