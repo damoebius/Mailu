@@ -33,9 +33,10 @@ spec:
         ports:
           - containerPort: 80
       volumes:
-        - name: maildata
-          persistentVolumeClaim:
-            claimName: mail-storage
+      - name: maildata
+        hostPath:
+          path: /mnt/stoapp/conf/mail
+          type: Directory              
 ---
 apiVersion: v1
 kind: Service
